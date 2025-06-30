@@ -6,6 +6,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
+	"github.com/xo-yosi/GoForge/internal/apt"
 )
 
 var installCmd = &cobra.Command{
@@ -34,7 +35,16 @@ Examples:
 
 Use 'goforge list' to see all installed packages.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("install called")
+		if len(args) < 1 {
+			fmt.Println("No package specified. Usage: goforge install <package> or goforge install --help")
+			return
+		}
+
+		pkg := args[0]
+        fmt.Printf("Installing %s via APT...\n", pkg)
+        if err := apt.InstallApt(pkg); err != nil {
+            fmt.Printf("Error: %v\n", err)
+        }
 	},
 }
 

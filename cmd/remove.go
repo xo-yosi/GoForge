@@ -1,5 +1,5 @@
 /*
-Copyright © 2025 NAME HERE <EMAIL ADDRESS>
+Copyright © 2025 NAME HERE xoyosi19@gmail.com
 
 */
 package cmd
@@ -13,13 +13,25 @@ import (
 // removeCmd represents the remove command
 var removeCmd = &cobra.Command{
 	Use:   "remove",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Uninstall a package installed by GoForge",
+Long: `Remove packages previously installed with GoForge from your system.
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+GoForge's remove command safely uninstalls packages that were installed via APT or GitHub releases
+using GoForge. This helps you keep your environment clean and organized.
+
+The package manager automatically handles:
+- Detecting the package source (APT or GitHub)
+- Uninstalling via the appropriate method
+- Cleaning up binaries from ~/.goforge/bin/
+- Updating the installation tracking database
+
+Examples:
+  goforge remove nano         # Uninstall nano installed from APT
+  goforge remove gh           # Remove GitHub CLI installed from releases
+  goforge remove bat          # Remove bat installed from GitHub releases
+
+Tip: Use 'goforge list' to see all packages you can remove.
+`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("remove called")
 	},
@@ -27,14 +39,4 @@ to quickly create a Cobra application.`,
 
 func init() {
 	rootCmd.AddCommand(removeCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// removeCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// removeCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
